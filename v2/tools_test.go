@@ -239,7 +239,7 @@ func TestTools_DownloadStaticFile(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/", nil)
 
 	var testTool Tools
-	testTool.DownloadStaticFile(rr, req, "./testdata/wordle.png", "quiz.png")
+	testTool.DownloadStaticFile(rr, req, "./testdata", "wordle.png", "quiz.png")
 
 	res := rr.Result()
 	defer res.Body.Close()
@@ -250,7 +250,7 @@ func TestTools_DownloadStaticFile(t *testing.T) {
 
 	if res.Header["Content-Disposition"][0] != "attachment; filename=\"quiz.png\"" {
 		t.Error("wrong content disposition")
-	}	
+	}
 
 	_, err := ioutil.ReadAll(res.Body)
 	if err != nil {
